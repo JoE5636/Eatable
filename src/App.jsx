@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import HomeFoodPage from "./pages/homeFoodPage";
+import FoodDetailPage from "./pages/foodDetailPage";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import UpdateProfile from "./pages/update-profile";
 import Profile from "./pages/profile-page";

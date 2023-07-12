@@ -109,7 +109,7 @@ function Food(food) {
         <ContainerTitle>{food.name}</ContainerTitle>
         <ContainerPrice>${price}</ContainerPrice>
         <IconContainer>
-          <NavIcon>
+          <NavIcon to={"/product/id"}>
             <BiSolidEdit
               style={{
                 color: `${colors.orange[500]}`,

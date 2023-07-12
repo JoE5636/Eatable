@@ -37,19 +37,19 @@ function HomeFoodPage() {
   // const italian = [];
   const [products, setProducts] = useState(null);
 
-  function FilterFoods(category) {
-    let foods = products?.filter((product) => product.category === category);
+  // function FilterFoods(category) {
+  //   let foods = products?.filter((product) => product.category === category);
 
-    console.log(foods);
-  }
+  //   console.log(foods);
+  // }
   useEffect(() => {
     getProducts().then(setProducts).catch(console.log);
   }, []);
   console.log(products);
 
-  function showFilter(category) {
-    console.log("ShowFilter");
-  }
+  // function showFilter(category) {
+  //   console.log("ShowFilter");
+  // }
 
   return (
     <Container>
