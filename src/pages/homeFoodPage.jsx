@@ -1,28 +1,29 @@
 import styled from "@emotion/styled";
-import Search from "../components/search";
-import NavFood from "../components/navFood";
-import Price from "../components/price";
+import Button from "../components/button";
 import Food from "../components/food";
-import Footer from "../components/footer";
 import { getProducts } from "../services/products-service";
 import { useEffect, useState } from "react";
+import { colors } from "../styles/colors";
 
 const Container = styled.div`
   max-width: 414px;
   max-height: 896px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 45px;
-  background: #d1d5db;
+  padding-top: 20px;
+  background: #f6f6f9;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
+
 const ContainerCard = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  // max-height: 535px;
   width: 414px;
-  height: 535px;
+  height: 690px;
   overflow: auto;
   justify-items: center;
   text-align: center;
@@ -46,24 +47,21 @@ function HomeFoodPage() {
   }, []);
   console.log(products);
 
-
-  function showFilter(category){
-
-    console.log("ShowFilter")
-
+  function showFilter(category) {
+    console.log("ShowFilter");
   }
 
   return (
     <Container>
-      <Search />
-      <NavFood {...products} />
-      <Price />
+      <h2 style={{ marginBottom: "10px" }}>Products Dashboard</h2>
       <ContainerCard>
         {products?.map((product) => {
           return <Food key={product.id} {...product}></Food>;
         })}
       </ContainerCard>
-      <Footer />
+      <Button style={{ marginTop: "10px", marginBottom: "10px" }} rounded>
+        Create Product
+      </Button>
     </Container>
   );
 }

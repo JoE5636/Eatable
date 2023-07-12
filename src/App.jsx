@@ -11,7 +11,7 @@ const Container = styled.div`
   max-height: 896px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #f6f6f9;
+  background: #f6f6f9;
 `;
 
 function App() {
