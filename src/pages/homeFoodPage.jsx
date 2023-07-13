@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
+import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/button";
 import Food from "../components/food";
-import { getProducts } from "../services/products-service";
+import { getProducts, deleteProduct } from "../services/products-service";
 import { colors } from "../styles/colors";
+import DeleteModal from "../components/deleteModal";
 
 const Container = styled.div`
   max-width: 414px;
@@ -29,11 +31,23 @@ const ContainerCard = styled.div`
   justify-items: center;
   text-align: center;
 `;
-
+const Modal = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgb(23 23 23 / 75%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const PathLink = styled(Link)``;
 
 function HomeFoodPage() {
   const [products, setProducts] = useState(null);
+  const [isOpenDelModal, setIsOpenDelModal] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
 
   useEffect(() => {
     getProducts().then(setProducts).catch(console.log);
@@ -41,10 +55,21 @@ function HomeFoodPage() {
 
   console.log(products);
 
-  // function handleFoodClick(event) {
-  //   event.preventDefault();
-  //   console.log(product.id);
-  // }
+  function handleDeleteClick(id) {
+    // event.preventDefault();
+    setIsOpenDelModal(true);
+    setProductIdToDelete(id);
+  }
+
+  function handleCloseModal(event) {
+    event.preventDefault();
+    setIsOpenDelModal(false);
+  }
+
+  function handleDeleteProduct() {
+    deleteProduct(productIdToDelete);
+    setIsOpenDelModal(false);
+  }
 
   return (
     <Container>
@@ -53,7 +78,7 @@ function HomeFoodPage() {
         {products?.map((product) => {
           return (
             <Food
-              // onFoodClick={handleFoodClick}
+              onDeleteClick={() => handleDeleteClick(product.id)}
               key={product.id}
               {...product}
             ></Food>
@@ -71,6 +96,14 @@ function HomeFoodPage() {
           Create Product
         </Button>
       </PathLink>
+      {isOpenDelModal ? (
+        <Modal>
+          <DeleteModal
+            onYesClick={handleDeleteProduct}
+            onNoClick={handleCloseModal}
+          ></DeleteModal>
+        </Modal>
+      ) : null}
     </Container>
   );
 }

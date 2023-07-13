@@ -5,7 +5,7 @@ export async function getProducts() {
   const data = await apiFetch("/products");
   localStorage.setItem(dataKey, JSON.stringify(data));
 
-  //   console.log(data);
+  // console.log(data);
   return data;
 }
 

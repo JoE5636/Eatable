@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import ReactDOM from "react-dom";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import foodImage from "../images/food.svg";
 import { BiSolidEdit } from "react-icons/bi";
@@ -101,18 +103,19 @@ const Icon = styled.div`
 
 const PathLink = styled(Link)``;
 
-function Food(food) {
-  const price = (food.price / 100).toFixed(2);
+function Food({ id, name, price, picture_url, onDeleteClick }) {
+  const foodPrice = (price / 100).toFixed(2);
+
   return (
     <ContainerCard>
-      <PathLink to={`/products/${food.id}`}>
-        <Image src={food.picture_url} alt={foodImage} />
+      <PathLink to={`/products/${id}`}>
+        <Image src={picture_url} alt={foodImage} />
       </PathLink>
       <ContainerText>
-        <ContainerTitle>{food.name}</ContainerTitle>
-        <ContainerPrice>${price}</ContainerPrice>
+        <ContainerTitle>{name}</ContainerTitle>
+        <ContainerPrice>${foodPrice}</ContainerPrice>
         <IconContainer>
-          <PathLink to={`/edit/${food.id}`}>
+          <PathLink to={`/edit/${id}`}>
             <BiSolidEdit
               style={{
                 color: `${colors.orange[500]}`,
@@ -121,7 +124,7 @@ function Food(food) {
               }}
             />
           </PathLink>
-          <Icon>
+          <Icon onClick={onDeleteClick}>
             <RiDeleteBin5Fill
               style={{
                 color: `${colors.orange[500]}`,
