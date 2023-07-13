@@ -1,20 +1,23 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { BsChevronLeft } from "react-icons/bs";
-import Footer from "../components/footer";
+import { useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { colors } from "../styles/colors";
-import { useAuth } from "../context/authContext";
+import { createProduct } from "../services/products-service";
 import Input from "../components/input";
 
 const Container = styled.div`
   background-color: #f6f6f9;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 414px;
   padding-top: 10px;
   height: 100vh;
   display: flex;
   flex-direction: column;
 `;
+
 const Header = styled.header`
   max-width: 414px;
   background-color: #f6f6f9;
@@ -22,14 +25,6 @@ const Header = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-const ProfileWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 504px;
 `;
 
 const NavIcon = styled(NavLink)`
@@ -48,28 +43,40 @@ const NavIcon = styled(NavLink)`
   }
 `;
 
+const ProductWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 504px;
+`;
+
 const ProfileCard = styled.div`
   width: 314px;
   height: 300px;
   border-radius: 20px;
   padding: 18px 16px;
-  background-color: ${colors.white};
+  background-color: #f6f6f9;
   display: flex;
   flex-direction: column;
 `;
 
-function UpdateProfile() {
-  const { user, updateProfile } = useAuth();
+const PathLink = styled(Link)``;
 
+function CreateProduct() {
   const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+    name: "",
+    price: 0,
+    description: "",
+    category: "",
+    picture_url: "",
   });
-  const { name, email, phone, address } = formData;
+
+  const { name, price, description, category, picture_url } = formData;
+
   function handleChange(event) {
     const { name, value } = event.target;
+    console.log(value);
     // toast("adsasd")
     setFormData({ ...formData, [name]: value });
   }
@@ -77,13 +84,13 @@ function UpdateProfile() {
   function handlesubmit(event) {
     event.preventDefault();
     console.log(formData);
-    updateProfile(formData);
+    createProduct(formData);
   }
-
+  const navigate = useNavigate();
   return (
     <Container>
       <Header>
-        <NavIcon to={"profile"}>
+        <NavIcon to={"/index"}>
           <BsChevronLeft
             style={{
               width: "24px",
@@ -91,65 +98,65 @@ function UpdateProfile() {
             }}
           />
         </NavIcon>
-        <h3>My Profile</h3>
+        <h3>Create Product</h3>
         <div style={{ color: "#f5f5f8" }}>.............</div>
       </Header>
-      <div
-        style={{
-          margin: "20px auto 9px auto",
-
-          width: "314px",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
-        }}
-      >
-        <h4>Update personal details</h4>
-      </div>
-      <ProfileWrapper onSubmit={handlesubmit}>
+      <ProductWrapper onSubmit={handlesubmit}>
         <ProfileCard>
           <Input
             id="name"
             name="name"
-            value={product ? name : " no name"}
+            value={name}
             label={"Name"}
             type="text"
-            style={{ backgroundColor: `${colors.white}` }}
+            style={{ backgroundColor: "#f6f6f9" }}
             onChange={handleChange}
           ></Input>
           <Input
-            id="email"
-            name="email"
-            value={email}
-            label={"Email adress"}
-            type="email"
-            style={{ backgroundColor: `${colors.white}` }}
-            onChange={handleChange}
-          ></Input>
-          <Input
-            id="phone"
-            name="phone"
-            label={"Phone"}
+            id="price"
+            name="price"
+            value={price}
+            label={"Price"}
             type="integer"
-            value={phone}
-            style={{ backgroundColor: `${colors.white}` }}
+            style={{ backgroundColor: "#f6f6f9" }}
             onChange={handleChange}
           ></Input>
           <Input
-            id="address"
-            name="address"
-            label={"Address"}
+            id="description"
+            name="description"
+            label={"description"}
             type="text"
-            value={address}
-            style={{ backgroundColor: `${colors.white}` }}
+            value={description}
+            style={{ backgroundColor: "#f6f6f9" }}
+            onChange={handleChange}
+          ></Input>
+          <Input
+            id="category"
+            name="category"
+            label={"category"}
+            type="text"
+            value={category}
+            style={{ backgroundColor: "#f6f6f9" }}
+            onChange={handleChange}
+          ></Input>
+          <Input
+            id="picture_url"
+            name="picture_url"
+            label={"Picture URL"}
+            type="text"
+            value={picture_url}
+            style={{ backgroundColor: "#f6f6f9" }}
             onChange={handleChange}
           ></Input>
         </ProfileCard>
-        <Button rounded>Update</Button>
-      </ProfileWrapper>
-      <Footer></Footer>
+        {/* <PathLink style={{ textDecoration: "none" }} to={"/index"}> */}
+        <Button onclick={() => navigate("/index")} rounded>
+          Save
+        </Button>
+        {/* </PathLink> */}
+      </ProductWrapper>
     </Container>
   );
 }
 
-export default UpdateProfile;
+export default CreateProduct;

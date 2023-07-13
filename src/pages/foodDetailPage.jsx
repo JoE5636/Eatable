@@ -3,6 +3,7 @@ import foodImage from "../images/food.svg";
 import Button from "../components/button";
 import { useEffect, useState } from "react";
 import { showProduct } from "../services/products-service";
+import { Link, useParams } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 414px;
@@ -58,11 +59,13 @@ const ImageFood = styled.img`
   filter: drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.2));
 `;
 
+const PathLink = styled(Link)``;
+
 function FoodDetailPage() {
   const [product, SetProduct] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
-    const id = 15;
     showProduct(id).then(SetProduct).catch(console.log);
   }, []);
 
@@ -79,9 +82,12 @@ function FoodDetailPage() {
         <h3>Description</h3>
         <p>{product.description}</p>
       </ContainerDescription>
-      <div style={{ marginBottom: "20px" }}>
+      <PathLink
+        to={"index"}
+        style={{ marginBottom: "20px", textDecoration: "none" }}
+      >
         <Button rounded>Go Back</Button>
-      </div>
+      </PathLink>
     </Container>
   );
 }

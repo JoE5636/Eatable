@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
+import { getProducts } from "../services/products-service";
 import { createUser, getUser, updateUser } from "../services/users-service";
 import * as session from "../services/sessions-service";
 import { tokenKey } from "../config";
@@ -9,7 +9,8 @@ const AuthContext = createContext();
 
 function AuthProvider(props) {
   const [user, setUser] = useState(null);
-  // const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState({});
+  const [product, setProduct] = useState({});
 
   function login(credentials) {
     session.login(credentials).then(setUser).catch(console.log);
@@ -22,6 +23,7 @@ function AuthProvider(props) {
   function updateProfile(userData) {
     updateUser(userData).then(setUser).catch(console.log);
   }
+
   function logout() {
     session.logout().then(() => {
       setUser(null);
@@ -29,10 +31,10 @@ function AuthProvider(props) {
     });
   }
 
-  // if (loading) return <img src={LoadingImage} alt="Loading ..."></img>;
-
   const value = {
     user,
+    products,
+    product,
     login,
     signup,
     logout,
@@ -45,6 +47,9 @@ function AuthProvider(props) {
         setUser(user);
       })
       .catch((error) => console.log(error));
+    getProducts()
+      .then((products) => setProducts(products))
+      .catch(console.log);
   }, []);
 
   return <AuthContext.Provider value={value} {...props} />;

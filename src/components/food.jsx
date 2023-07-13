@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { NavLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import foodImage from "../images/food.svg";
 import { BiSolidEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -7,7 +7,6 @@ import { colors } from "../styles/colors";
 
 const ContainerCard = styled.div`
   display: grid;
-  cursor: pointer;
   place-items: center;
   position: relative;
   width: 156px;
@@ -70,7 +69,7 @@ const IconContainer = styled.div`
   padding-right: 10px;
 `;
 
-const NavIcon = styled(NavLink)`
+const IconLink = styled.div`
   border-radius: 20px;
 
   border: none;
@@ -100,16 +99,20 @@ const Icon = styled.div`
   }
 `;
 
+const PathLink = styled(Link)``;
+
 function Food(food) {
   const price = (food.price / 100).toFixed(2);
   return (
     <ContainerCard>
-      <Image src={food.picture_url} alt={foodImage} />
+      <PathLink to={`/products/${food.id}`}>
+        <Image src={food.picture_url} alt={foodImage} />
+      </PathLink>
       <ContainerText>
         <ContainerTitle>{food.name}</ContainerTitle>
         <ContainerPrice>${price}</ContainerPrice>
         <IconContainer>
-          <NavIcon to={"/product/id"}>
+          <PathLink to={`/edit/${food.id}`}>
             <BiSolidEdit
               style={{
                 color: `${colors.orange[500]}`,
@@ -117,7 +120,7 @@ function Food(food) {
                 height: "16px",
               }}
             />
-          </NavIcon>
+          </PathLink>
           <Icon>
             <RiDeleteBin5Fill
               style={{

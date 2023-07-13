@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "../components/button";
 import Food from "../components/food";
 import { getProducts } from "../services/products-service";
-import { useEffect, useState } from "react";
 import { colors } from "../styles/colors";
 
 const Container = styled.div`
@@ -28,27 +29,21 @@ const ContainerCard = styled.div`
   justify-items: center;
   text-align: center;
 `;
+
+const PathLink = styled(Link)``;
+
 function HomeFoodPage() {
-  // const [filters, setFilters] = useState({
-  //   category: "italian",
-  //   minprice: 0,
-  //   maxprice: 1000000000,
-  // });
-  // const italian = [];
   const [products, setProducts] = useState(null);
 
-  // function FilterFoods(category) {
-  //   let foods = products?.filter((product) => product.category === category);
-
-  //   console.log(foods);
-  // }
   useEffect(() => {
     getProducts().then(setProducts).catch(console.log);
   }, []);
+
   console.log(products);
 
-  // function showFilter(category) {
-  //   console.log("ShowFilter");
+  // function handleFoodClick(event) {
+  //   event.preventDefault();
+  //   console.log(product.id);
   // }
 
   return (
@@ -56,12 +51,26 @@ function HomeFoodPage() {
       <h2 style={{ marginBottom: "10px" }}>Products Dashboard</h2>
       <ContainerCard>
         {products?.map((product) => {
-          return <Food key={product.id} {...product}></Food>;
+          return (
+            <Food
+              // onFoodClick={handleFoodClick}
+              key={product.id}
+              {...product}
+            ></Food>
+          );
         })}
       </ContainerCard>
-      <Button style={{ marginTop: "10px", marginBottom: "10px" }} rounded>
-        Create Product
-      </Button>
+      <PathLink style={{ textDecoration: "none" }} to={"/create"}>
+        <Button
+          style={{
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+          rounded
+        >
+          Create Product
+        </Button>
+      </PathLink>
     </Container>
   );
 }
