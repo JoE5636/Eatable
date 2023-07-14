@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import Food from "../components/food";
 import { getProducts, deleteProduct } from "../services/products-service";
@@ -55,10 +55,13 @@ function HomeFoodPage() {
 
   console.log(products);
 
+  const navigate = useNavigate();
+
   function handleDeleteClick(id) {
     // event.preventDefault();
     setIsOpenDelModal(true);
     setProductIdToDelete(id);
+    // console.log(productIdToDelete);
   }
 
   function handleCloseModal(event) {
@@ -69,6 +72,7 @@ function HomeFoodPage() {
   function handleDeleteProduct() {
     deleteProduct(productIdToDelete);
     setIsOpenDelModal(false);
+    navigate("/index");
   }
 
   return (

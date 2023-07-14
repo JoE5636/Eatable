@@ -40,7 +40,6 @@ function DeleteModal({ onYesClick, onNoClick }) {
           style={{
             backgroundColor: `${colors.yellow[500]}`,
             width: "262px",
-            width: "262px",
             padding: "12px 16px",
             justifyContent: "center",
             alignItems: "center",
