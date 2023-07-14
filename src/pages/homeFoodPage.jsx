@@ -101,16 +101,18 @@ function HomeFoodPage() {
           Create Product
         </Button>
       </PathLink>
-      createPortal(
-      {isOpenDelModal ? (
-        <Modal>
-          <DeleteModal
-            onYesClick={handleDeleteProduct}
-            onNoClick={handleCloseModal}
-          ></DeleteModal>
-        </Modal>
-      ) : null}
-      , document.getElementById("modal-root"));
+
+      {isOpenDelModal
+        ? createPortal(
+            <Modal>
+              <DeleteModal
+                onYesClick={handleDeleteProduct}
+                onNoClick={handleCloseModal}
+              ></DeleteModal>
+            </Modal>,
+            document.getElementById("modal-root")
+          )
+        : null}
     </Container>
   );
 }

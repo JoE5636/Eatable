@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { BsChevronLeft } from "react-icons/bs";
 // import { useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { colors } from "../styles/colors";
 import { typography } from "../styles/typography";
@@ -160,15 +160,13 @@ function CreateProduct() {
                   id="name"
                   as={StyledInput}
                   name="name"
-                  // label={"Name"}
-                  // value={name}
                   type="text"
                   style={{ backgroundColor: "#f6f6f9" }}
-                  // onChange={handleChange}
                 />
                 <ErrorMessage
                   name="name"
-                  className="form-error red"
+                  className="form-error"
+                  style={{ color: "red" }}
                   component="p"
                 />
               </div>
@@ -180,11 +178,8 @@ function CreateProduct() {
                   id="price"
                   name="price"
                   as={StyledInput}
-                  // value={price}
-                  // label={"Price"}
                   type="integer"
                   style={{ backgroundColor: "#f6f6f9" }}
-                  // onChange={handleChange}
                 />
                 <ErrorMessage
                   name="price"
@@ -202,11 +197,8 @@ function CreateProduct() {
                   id="description"
                   name="description"
                   as={StyledInput}
-                  // label={"description"}
                   type="text"
-                  // value={description}
                   style={{ backgroundColor: "#f6f6f9" }}
-                  // onChange={handleChange}
                 />
                 <ErrorMessage
                   name="description"
@@ -222,11 +214,8 @@ function CreateProduct() {
                   id="category"
                   name="category"
                   as={StyledInput}
-                  // label={"category"}
                   type="text"
-                  // value={category}
                   style={{ backgroundColor: "#f6f6f9" }}
-                  // onChange={handleChange}
                 />
                 <ErrorMessage
                   name="category"
@@ -244,11 +233,8 @@ function CreateProduct() {
                   id="picture_url"
                   name="picture_url"
                   as={StyledInput}
-                  // label={"Picture URL"}
                   type="text"
-                  // value={picture_url}
                   style={{ backgroundColor: "#f6f6f9" }}
-                  // onChange={handleChange}
                 />
                 <ErrorMessage
                   name="picture_url"
