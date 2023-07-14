@@ -1,13 +1,15 @@
 import styled from "@emotion/styled";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import Food from "../components/food";
 import { getProducts, deleteProduct } from "../services/products-service";
-import { colors } from "../styles/colors";
+// import { colors } from "../styles/colors";
 import DeleteModal from "../components/deleteModal";
+import ErrorFallback from "../components/errorFalback";
 
 const Container = styled.div`
   max-width: 414px;
@@ -102,18 +104,19 @@ function HomeFoodPage() {
           Create Product
         </Button>
       </PathLink>
-
-      {isOpenDelModal
-        ? createPortal(
-            <Modal>
-              <DeleteModal
-                onYesClick={handleDeleteProduct}
-                onNoClick={handleCloseModal}
-              ></DeleteModal>
-            </Modal>,
-            document.getElementById("modal-root")
-          )
-        : null}
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        {isOpenDelModal
+          ? createPortal(
+              <Modal>
+                <DeleteModal
+                  onYesClick={handleDeleteProduct}
+                  onNoClick={handleCloseModal}
+                ></DeleteModal>
+              </Modal>,
+              document.getElementById("modal-root")
+            )
+          : null}
+      </ErrorBoundary>
     </Container>
   );
 }
