@@ -149,11 +149,10 @@ function CreateProduct() {
             onChange={handleChange}
           ></Input>
         </ProfileCard>
-        {/* <PathLink style={{ textDecoration: "none" }} to={"/index"}> */}
+
         <Button onclick={() => navigate("/index")} rounded>
           Save
         </Button>
-        {/* </PathLink> */}
       </ProductWrapper>
     </Container>
   );

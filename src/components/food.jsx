@@ -32,7 +32,7 @@ const ContainerText = styled.div`
   align-items: center;
   gap: 8px;
   margin: auto;
-  z-index: 1;
+  z-index: 0;
   line-height: 27.65px;
 `;
 

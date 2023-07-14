@@ -72,7 +72,7 @@ function EditProduct() {
   useEffect(() => {
     setFormData({
       name: product.name,
-      price: (product.price / 100).toFixed(2),
+      price: product.price,
       description: product.description,
       category: product.category,
       picture_url: product.picture_url,
