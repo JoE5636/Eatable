@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
@@ -100,6 +101,7 @@ function HomeFoodPage() {
           Create Product
         </Button>
       </PathLink>
+      createPortal(
       {isOpenDelModal ? (
         <Modal>
           <DeleteModal
@@ -108,6 +110,7 @@ function HomeFoodPage() {
           ></DeleteModal>
         </Modal>
       ) : null}
+      , document.getElementById("modal-root"));
     </Container>
   );
 }
