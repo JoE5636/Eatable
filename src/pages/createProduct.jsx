@@ -5,6 +5,7 @@ import { BsChevronLeft } from "react-icons/bs";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { colors } from "../styles/colors";
+import { typography } from "../styles/typography";
 import { createProduct } from "../services/products-service";
 // import Input from "../components/input";
 
@@ -44,14 +45,13 @@ const NavIcon = styled(NavLink)`
   }
 `;
 
-const ProductForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 504px;
-`;
-
+const productForm = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "center",
+  height: "504px",
+};
 const ProductCard = styled.div`
   width: 314px;
   height: 300px;
@@ -60,6 +60,18 @@ const ProductCard = styled.div`
   background-color: #f6f6f9;
   display: flex;
   flex-direction: column;
+`;
+const StyledLabel = styled.label`
+  ${typography.text.xs};
+  text-transform: uppercase;
+`;
+
+const StyledInput = styled.input`
+  padding: 4px 12px;
+  border: none;
+  border-bottom: 1px solid ${colors.gray[500]};
+  background-color: #f6f6f9;
+  width: 100%;
 `;
 
 function CreateProduct() {
@@ -129,11 +141,15 @@ function CreateProduct() {
         validate={validate}
       >
         {({ values, errors, touched, handleSubmit, isValid }) => (
-          <Form className="form" onSubmit={handleSubmit}>
+          <Form className="form" style={productForm} onSubmit={handleSubmit}>
             <ProductCard>
               <div>
+                <div>
+                  <StyledLabel htmlForfor="name">Name</StyledLabel>
+                </div>
                 <Field
                   id="name"
+                  as={StyledInput}
                   name="name"
                   // label={"Name"}
                   // value={name}
@@ -143,14 +159,18 @@ function CreateProduct() {
                 />
                 <ErrorMessage
                   name="name"
-                  className="form-error"
+                  className="form-error red"
                   component="p"
                 />
               </div>
               <div>
+                <div>
+                  <StyledLabel htmlForfor="price">Price</StyledLabel>
+                </div>
                 <Field
                   id="price"
                   name="price"
+                  as={StyledInput}
                   // value={price}
                   // label={"Price"}
                   type="integer"
@@ -164,9 +184,15 @@ function CreateProduct() {
                 />
               </div>
               <div>
+                <div>
+                  <StyledLabel htmlForfor="description">
+                    Description
+                  </StyledLabel>
+                </div>
                 <Field
                   id="description"
                   name="description"
+                  as={StyledInput}
                   // label={"description"}
                   type="text"
                   // value={description}
@@ -175,9 +201,13 @@ function CreateProduct() {
                 />
               </div>
               <div>
+                <div>
+                  <StyledLabel htmlForfor="category">Category</StyledLabel>
+                </div>
                 <Field
                   id="category"
                   name="category"
+                  as={StyledInput}
                   // label={"category"}
                   type="text"
                   // value={category}
@@ -191,9 +221,15 @@ function CreateProduct() {
                 />
               </div>
               <div>
+                <div>
+                  <StyledLabel htmlForfor="picture_url">
+                    Picture URL
+                  </StyledLabel>
+                </div>
                 <Field
                   id="picture_url"
                   name="picture_url"
+                  as={StyledInput}
                   // label={"Picture URL"}
                   type="text"
                   // value={picture_url}
