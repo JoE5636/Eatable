@@ -52,6 +52,7 @@ const productForm = {
   alignItems: "center",
   height: "504px",
 };
+
 const ProductCard = styled.div`
   width: 314px;
   height: 300px;
@@ -89,8 +90,16 @@ function CreateProduct() {
         "price must include two decimals at the end, no decimal point";
     }
 
+    if (values.description === "") {
+      errors.description = "Required";
+    }
+
     if (values.category === "") {
-      errors.email = "Required";
+      errors.category = "Required";
+    }
+
+    if (values.picture_url === "") {
+      errors.picture_url = "Required";
     }
 
     return errors;
@@ -199,6 +208,11 @@ function CreateProduct() {
                   style={{ backgroundColor: "#f6f6f9" }}
                   // onChange={handleChange}
                 />
+                <ErrorMessage
+                  name="description"
+                  className="form-error red"
+                  component="p"
+                />
               </div>
               <div>
                 <div>
@@ -215,7 +229,7 @@ function CreateProduct() {
                   // onChange={handleChange}
                 />
                 <ErrorMessage
-                  name="name"
+                  name="category"
                   className="form-error"
                   component="p"
                 />
@@ -235,6 +249,11 @@ function CreateProduct() {
                   // value={picture_url}
                   style={{ backgroundColor: "#f6f6f9" }}
                   // onChange={handleChange}
+                />
+                <ErrorMessage
+                  name="picture_url"
+                  className="form-error red"
+                  component="p"
                 />
               </div>
             </ProductCard>
