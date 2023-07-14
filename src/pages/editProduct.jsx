@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BsChevronLeft } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
@@ -142,6 +144,18 @@ function EditProduct() {
   //   // toast("adsasd")
   //   setFormData({ ...formData, [name]: value });
   // }
+  const Message = () => {
+    toast("Product Updated!!!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   function handleSubmit(values) {
     console.log(values);
@@ -164,6 +178,18 @@ function EditProduct() {
         <h3>Edit Product</h3>
         <div style={{ color: "#f5f5f8" }}>.............</div>
       </Header>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      ></ToastContainer>
       <Formik
         initialValues={{
           name: product.name,
@@ -274,7 +300,7 @@ function EditProduct() {
               </div>
             </ProductCard>
 
-            <Button type="submit" disabled={!isValid} rounded>
+            <Button onClick={Message} type="submit" disabled={!isValid} rounded>
               Save
             </Button>
           </Form>

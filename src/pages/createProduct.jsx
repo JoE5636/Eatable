@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BsChevronLeft } from "react-icons/bs";
 // import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -127,6 +129,18 @@ function CreateProduct() {
     console.log(values);
     createProduct(values);
   }
+  const Message = () => {
+    toast("Product Created!!!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   // const navigate = useNavigate();
 
@@ -144,6 +158,18 @@ function CreateProduct() {
         <h3>Create Product</h3>
         <div style={{ color: "#f5f5f8" }}>.............</div>
       </Header>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      ></ToastContainer>
       <Formik
         initialValues={initialForm}
         onSubmit={handleSubmit}
@@ -248,7 +274,7 @@ function CreateProduct() {
               </div>
             </ProductCard>
 
-            <Button type="submit" disabled={!isValid} rounded>
+            <Button onClick={Message} type="submit" disabled={!isValid} rounded>
               Save
             </Button>
           </Form>
@@ -260,4 +286,4 @@ function CreateProduct() {
 
 export default CreateProduct;
 
-// onclick={() => navigate("/index")
+// onclick={() => navigate("/index")}
