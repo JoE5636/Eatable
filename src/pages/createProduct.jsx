@@ -80,26 +80,26 @@ function CreateProduct() {
     const errors = {};
 
     if (values.name === "") {
-      errors.name = "Required";
+      errors.name = "Name is required";
     }
 
     if (values.price === "") {
-      errors.price = "Required";
+      errors.price = "Price is required";
     } else if (values.price.length < 3) {
       errors.price =
         "price must include two decimals at the end, no decimal point";
     }
 
     if (values.description === "") {
-      errors.description = "Required";
+      errors.description = "You must enter a description";
     }
 
     if (values.category === "") {
-      errors.category = "Required";
+      errors.category = "You have to enter a category";
     }
 
     if (values.picture_url === "") {
-      errors.picture_url = "Required";
+      errors.picture_url = "You must submit a picture";
     }
 
     return errors;
@@ -184,6 +184,7 @@ function CreateProduct() {
                 <ErrorMessage
                   name="price"
                   className="form-error"
+                  style={{ color: "red" }}
                   component="p"
                 />
               </div>
@@ -202,7 +203,8 @@ function CreateProduct() {
                 />
                 <ErrorMessage
                   name="description"
-                  className="form-error red"
+                  className="form-error"
+                  style={{ color: "red" }}
                   component="p"
                 />
               </div>
@@ -220,6 +222,7 @@ function CreateProduct() {
                 <ErrorMessage
                   name="category"
                   className="form-error"
+                  style={{ color: "red" }}
                   component="p"
                 />
               </div>
@@ -238,7 +241,8 @@ function CreateProduct() {
                 />
                 <ErrorMessage
                   name="picture_url"
-                  className="form-error red"
+                  className="form-error"
+                  style={{ color: "red" }}
                   component="p"
                 />
               </div>
