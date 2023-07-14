@@ -4,33 +4,33 @@ import styled from "@emotion/styled";
 import { colors } from "../styles/colors";
 import { typography } from "../styles/typography";
 
-function typeStyles(type) {
-  switch (type) {
-    case "primary":
-      return `
-        background-color: ${colors.pink[600]};
-        color: ${colors.white};
-        &:hover {
-          background-color: ${colors.pink[700]};
-        }
-        &:active {
-          background-color: ${colors.pink[800]};
-        }
-        &:focus {
-          outline: 2px solid ${colors.pink[800]};
-        }
-      `;
+// function typeStyles(type) {
+//   switch (type) {
+//     case "primary":
+//       return `
+//         background-color: ${colors.pink[600]};
+//         color: ${colors.white};
+//         &:hover {
+//           background-color: ${colors.pink[700]};
+//         }
+//         &:active {
+//           background-color: ${colors.pink[800]};
+//         }
+//         &:focus {
+//           outline: 2px solid ${colors.pink[800]};
+//         }
+//       `;
 
-    case "secondary":
-      return `
-        background-color: ${colors.orange};
-        color: ${colors.white};
-      `;
+//     case "secondary":
+//       return `
+//         background-color: ${colors.orange};
+//         color: ${colors.white};
+//       `;
 
-    default:
-      break;
-  }
-}
+//     default:
+//       break;
+//   }
+// }
 
 function sizeStyles(size, rounded) {
   switch (size) {
@@ -83,7 +83,7 @@ const StyledButton = styled.button`
     cursor: not-allowed;
   }
 
-  ${(props) => typeStyles(props.type)}
+  ${"" /* ${(props) => typeStyles(props.type)} */}
   ${(props) => sizeStyles(props.size, props.rounded)}
 `;
 
@@ -98,7 +98,7 @@ function Button({ icon, children, ...props }) {
 
 Button.propTypes = {
   disabled: PropTypes.bool,
-  type: PropTypes.oneOf(["primary", "secondary"]),
+  // type: PropTypes.oneOf(["primary", "secondary"]),
   size: PropTypes.oneOf(["sm", "md", "lg"]),
   icon: PropTypes.element,
   isFullWidth: PropTypes.bool,

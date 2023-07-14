@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { BsChevronLeft } from "react-icons/bs";
-import { useState } from "react";
+// import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { colors } from "../styles/colors";
 import { createProduct } from "../services/products-service";
-import Input from "../components/input";
+// import Input from "../components/input";
 
 const Container = styled.div`
   background-color: #f6f6f9;
@@ -43,7 +44,7 @@ const NavIcon = styled(NavLink)`
   }
 `;
 
-const ProductWrapper = styled.form`
+const ProductForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,7 +52,7 @@ const ProductWrapper = styled.form`
   height: 504px;
 `;
 
-const ProfileCard = styled.div`
+const ProductCard = styled.div`
   width: 314px;
   height: 300px;
   border-radius: 20px;
@@ -61,32 +62,53 @@ const ProfileCard = styled.div`
   flex-direction: column;
 `;
 
-const PathLink = styled(Link)``;
-
 function CreateProduct() {
-  const [formData, setFormData] = useState({
+  function validate(values) {
+    const errors = {};
+
+    if (values.name === "") {
+      errors.name = "Required";
+    }
+
+    if (values.price === "") {
+      errors.price = "Required";
+    } else if (values.price.length < 3) {
+      errors.price =
+        "price must include two decimals at the end, no decimal point";
+    }
+
+    if (values.category === "") {
+      errors.email = "Required";
+    }
+
+    return errors;
+  }
+
+  const initialForm = {
     name: "",
-    price: 0,
+    price: "",
     description: "",
     category: "",
     picture_url: "",
-  });
+  };
 
-  const { name, price, description, category, picture_url } = formData;
+  // const { name, price, description, category, picture_url } = formData;
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    console.log(value);
-    // toast("adsasd")
-    setFormData({ ...formData, [name]: value });
+  // function handleChange(event) {
+  //   const { name, value } = event.target;
+  //   console.log(value);
+  //   // toast("adsasd")
+  //   setFormData({ ...formData, [name]: value });
+  // }
+
+  function handleSubmit(values) {
+    // event.preventDefault();
+    console.log(values);
+    createProduct(values);
   }
 
-  function handlesubmit(event) {
-    event.preventDefault();
-    console.log(formData);
-    createProduct(formData);
-  }
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
   return (
     <Container>
       <Header>
@@ -101,61 +123,96 @@ function CreateProduct() {
         <h3>Create Product</h3>
         <div style={{ color: "#f5f5f8" }}>.............</div>
       </Header>
-      <ProductWrapper onSubmit={handlesubmit}>
-        <ProfileCard>
-          <Input
-            id="name"
-            name="name"
-            value={name}
-            label={"Name"}
-            type="text"
-            style={{ backgroundColor: "#f6f6f9" }}
-            onChange={handleChange}
-          ></Input>
-          <Input
-            id="price"
-            name="price"
-            value={price}
-            label={"Price"}
-            type="integer"
-            style={{ backgroundColor: "#f6f6f9" }}
-            onChange={handleChange}
-          ></Input>
-          <Input
-            id="description"
-            name="description"
-            label={"description"}
-            type="text"
-            value={description}
-            style={{ backgroundColor: "#f6f6f9" }}
-            onChange={handleChange}
-          ></Input>
-          <Input
-            id="category"
-            name="category"
-            label={"category"}
-            type="text"
-            value={category}
-            style={{ backgroundColor: "#f6f6f9" }}
-            onChange={handleChange}
-          ></Input>
-          <Input
-            id="picture_url"
-            name="picture_url"
-            label={"Picture URL"}
-            type="text"
-            value={picture_url}
-            style={{ backgroundColor: "#f6f6f9" }}
-            onChange={handleChange}
-          ></Input>
-        </ProfileCard>
+      <Formik
+        initialValues={initialForm}
+        onSubmit={handleSubmit}
+        validate={validate}
+      >
+        {({ values, errors, touched, handleSubmit, isValid }) => (
+          <Form className="form" onSubmit={handleSubmit}>
+            <ProductCard>
+              <div>
+                <Field
+                  id="name"
+                  name="name"
+                  // label={"Name"}
+                  // value={name}
+                  type="text"
+                  style={{ backgroundColor: "#f6f6f9" }}
+                  // onChange={handleChange}
+                />
+                <ErrorMessage
+                  name="name"
+                  className="form-error"
+                  component="p"
+                />
+              </div>
+              <div>
+                <Field
+                  id="price"
+                  name="price"
+                  // value={price}
+                  // label={"Price"}
+                  type="integer"
+                  style={{ backgroundColor: "#f6f6f9" }}
+                  // onChange={handleChange}
+                />
+                <ErrorMessage
+                  name="price"
+                  className="form-error"
+                  component="p"
+                />
+              </div>
+              <div>
+                <Field
+                  id="description"
+                  name="description"
+                  // label={"description"}
+                  type="text"
+                  // value={description}
+                  style={{ backgroundColor: "#f6f6f9" }}
+                  // onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Field
+                  id="category"
+                  name="category"
+                  // label={"category"}
+                  type="text"
+                  // value={category}
+                  style={{ backgroundColor: "#f6f6f9" }}
+                  // onChange={handleChange}
+                />
+                <ErrorMessage
+                  name="name"
+                  className="form-error"
+                  component="p"
+                />
+              </div>
+              <div>
+                <Field
+                  id="picture_url"
+                  name="picture_url"
+                  // label={"Picture URL"}
+                  type="text"
+                  // value={picture_url}
+                  style={{ backgroundColor: "#f6f6f9" }}
+                  // onChange={handleChange}
+                />
+              </div>
+            </ProductCard>
 
-        <Button onclick={() => navigate("/index")} rounded>
-          Save
-        </Button>
-      </ProductWrapper>
+            <Button type="submit" disabled={!isValid} rounded>
+              Save
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </Container>
   );
 }
 
 export default CreateProduct;
+
+// onclick={() => navigate("/index")
